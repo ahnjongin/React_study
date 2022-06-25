@@ -1,5 +1,5 @@
 let a = ""; //FALSE
-let a = "unefined"; //FALSE
+let a = "undefined"; //FALSE
 let a = []; //TRUE
 let a = "string"  //TRUE
 //-0, NaN, 0, null - FALSE
