@@ -5,30 +5,33 @@ import Diary from "./pages/Diary";
 import Edit from "./pages/Edit";
 import New from "./pages/New";
 import React, { useReducer, useRef} from "react";
-import {type} from "@testing-library/user-event/dist/type";
 
 const reducer = (state, action) => {
   let newState = [];
-  switch (action, type){
-    case 'INIT' :{
+  switch (action.type){
+    case "INIT":{
       return action.data;
     }
-    case 'CREATE' :{
-      newState = [action.data, ...state]
-      break
-    }
-    case 'REMOVE':{
-      newState = state.filter((it) => it.id !== action.targetId)
+    case "CREATE":{
+      const newItem = {
+        ...action.data,
+      }
+      newState = [newItem, ...state];
       break;
     }
-    case 'EDIT' :{
+    case "REMOVE":{
+      newState = state.filter((it) => it.id !== action.targetId);
+      break;
+    }
+    case "EDIT" :{
       newState = state.map((it) => it.id === action.data.id? {...action.data}: it)
       break;
     }
     default:
-      return state
+      return state;
   }
-  return newState
+  console.log("fuck")
+  return newState;
 }
 
 export const DiaryStateContext = React.createContext();
@@ -80,6 +83,7 @@ function App() {
         data: new Date(date).getTime(),
         content,
         emotion,
+
       }
     })
     dataId.current += 1;
